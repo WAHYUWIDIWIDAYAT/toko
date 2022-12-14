@@ -50,6 +50,9 @@ $routes->get('transaction', 'Transaksi::index', ['filter' => 'auth']);
 $routes->get('invoice/(:segment)', 'Transaksi::invoice', ['filter' => 'auth']);
 $routes->add('buy', 'Transaksi::buy', ['filter' => 'auth']);
 $routes->add('komentar/create', 'Komentar::create');
+$routes->add('barang/create', 'Barang::save');
+$routes->get('barang', 'Barang::kategori');
+$routes->get('barang', 'Barang::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
