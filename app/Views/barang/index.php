@@ -22,9 +22,11 @@
     <!--kategori input from data kategori-->
     <div class="form-group">
         <label for="id_kategori">Kategori</label>
+        
         <select name="id_kategori" class="form-control">
+        <option value="">Pilih Kategori</option>
             <?php foreach ($kategori as $k) : ?>
-                <option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
+                <option value="<?= $k->id ?>"><?= $k->nama ?></option>
             <?php endforeach; ?>
         </select>
     </div>

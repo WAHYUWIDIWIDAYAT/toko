@@ -55,6 +55,7 @@ class Barang extends BaseController
         }
 
         $fileGambar = $this->request->getFile('gambar');
+        //check 
         $namaGambar = $fileGambar->getRandomName();
         $fileGambar->move('uploads', $namaGambar);
         $data = [

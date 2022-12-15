@@ -20,10 +20,13 @@ $session = session();
                     <a href="/login" class="login-panel"><i class="fa fa-user"></i>Login</a>
                 <?php endif ?>
                 <?php if(!$session->get('isLoggedIn')): ?>
-                    <a href="/register" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <a href="/register" class="login-panel"><i class="fa fa-user"></i>Register</a><br>
                 <?php endif ?>
                 <?php if($session->get('isLoggedIn')): ?>
                     <a href="/" class="login-panel"><i class="fa fa-user"></i><?= $session->get('username')?></a>
+                <?php endif ?>
+                <?php if($session->get('isLoggedIn')): ?>
+                    <a href="/logout" class="login-panel"><i class="fa fa-user"></i>Logout</a>
                 <?php endif ?>
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
