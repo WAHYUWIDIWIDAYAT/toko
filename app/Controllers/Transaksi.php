@@ -95,4 +95,6 @@ class Transaksi extends BaseController
         // output the generated pdf
         $dompdf->stream($filename); 
     }
+
+	
 }

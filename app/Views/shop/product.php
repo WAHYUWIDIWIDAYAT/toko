@@ -26,6 +26,11 @@
 		'max' => $barang->stok,
         'class' => 'form-control',
 	];
+    $voucher = [
+        'name' => 'voucher',
+        'id' => 'voucher',
+        'class' => 'form-control',
+    ];
 	$total_harga = [
 		'name' => 'total_harga',
 		'id' => 'total_harga',
@@ -238,6 +243,16 @@
                                     <h4>Rp <?= $barang->harga ?></h4>
                                     <hr>
                                     <?php if($session->get('isLoggedIn')): ?>
+                                        <?= form_open('voucher') ?>
+                                        <div class="form-group">
+                                            <?= form_label('Voucher', 'voucher') ?>
+                                            <?= form_input($voucher) ?>
+                                        </div>
+                                        <div class="text-right">
+                                            <?= form_submit($submit) ?>
+                                        </div>
+                                    <?= form_close() ?>
+                        
                                     <h4>Pengiriman</h4>
                                     <div class="form-group">
                                         <label for="provinsi">Pilih Provinsi</label>
@@ -271,6 +286,10 @@
                                             <?= form_input($jumlah) ?>
                                         </div>
                                         <div class="form-group">
+                                            <?= form_label('Voucher', 'voucher') ?>
+                                            <?= form_input($voucher) ?>
+                                        </div>
+                                        <div class="form-group">
                                             <?= form_label('Ongkir', 'ongkir') ?>
                                             <?= form_input($ongkir) ?>
                                         </div>
@@ -286,6 +305,7 @@
                                             <?= form_submit($submit) ?>
                                         </div>
                                     <?= form_close() ?>
+
                                     <?php endif ?>
                                 </div>      
                                 <div class="pd-share">

@@ -30,6 +30,10 @@
             <?php endforeach; ?>
         </select>
     </div>
+    <!-- get data voucher from tabel voucher -->
+    <?php foreach ($voucher as $voucher) : ?>
+        <option value="<? $voucher->id ?>"><?= $voucher->nama ?></option>
+        <?php endforeach;?>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Simpan</button>
     </div>

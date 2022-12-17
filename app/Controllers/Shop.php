@@ -5,7 +5,7 @@ namespace App\Controllers;
 class Shop extends BaseController
 {
     private $url = "https://api.rajaongkir.com/starter/";
-	private $apiKey = "ae4b0421f38dd6cd9ae8bc74a55b76e1";
+	private $apiKey = "ff150ba0ac4d379e8729466bb4100f72";
 
     public function __construct()
 	{ 
@@ -141,4 +141,15 @@ class Shop extends BaseController
 
 		return $response;
 	} 
+
+	public function voucher(){
+		$voucherModel = new \App\Models\VoucherModel();
+        $kode_voucher = $this->request->getVar('voucher');
+		$voucher = $voucherModel->find($kode_voucher);
+		return view('shop/product',[
+            'voucher' => $voucher,
+        ]);
+	}
+	
+
 }

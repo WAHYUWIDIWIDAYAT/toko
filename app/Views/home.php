@@ -495,7 +495,16 @@
                     </div>
                 </div>
             </div>
+        </select>
         </div>
+        <ul class="filter-voucher">
+            <?php foreach($voucher as $index=>$voucher): ?>
+            <li><?= $voucher->kode_voucher?></a></li>
+            <li><?= $voucher->besar_diskon?></a></li>
+            <?php endforeach ?> 
+        </ul>
+
+        <!--tabel list voucher-->
     </section>
     <!-- Latest Blog Section End -->
 <?= $this->endSection() ?>
