@@ -48,6 +48,9 @@ class Shop extends BaseController
         $komentarModel = new \App\Models\KomentarModel();
 		$barang = $barangModel->find($id); 
         $kategori = $kategoriModel->findAll();
+		$db      = \Config\Database::connect();
+        $builder = $db->table('diskon');
+		$query   = $builder->get();
         $komentar = $komentarModel->select('komentar.*, user.username')->where('id_barang', $id)->join('user', 'komentar.id_user=user.id')->where('id_barang', $id)->findAll();
 
 		$provinsi = $this->rajaongkir('province');
@@ -56,6 +59,7 @@ class Shop extends BaseController
 			'barang' => $barang, 
             'kategoris' => $kategori,
             'komentars' => $komentar,
+			'diskons' => $query->getResult(),
             'provinsi'=> json_decode($provinsi)->rajaongkir->results,
 		]);
 	}

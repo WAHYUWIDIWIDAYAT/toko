@@ -37,7 +37,7 @@ class Voucher extends Migration
 		]);
 
 		$this->forge->addKey('id', TRUE); 
-		$this->forge->createTable('voucher');
+		$this->forge->createTable('diskon');
 
 
     }

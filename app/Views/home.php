@@ -188,6 +188,24 @@
     </section>
     <!-- Women Banner Section End -->
 
+    <table style="text-align: center; margin-left: auto; margin-right: auto; border: 1px solid black; font-size:20px">
+          
+        <tr>
+                <td style="border: 2px solid black;">Kode Voucher<td>
+                <td style="border: 2px solid black;">Besar Diskon<td>
+                <td style="border: 2px solid black;">Tanggal Berlaku<td>
+                <td style="border: 2px solid black;">Tanggal Berakhir<td>
+            </tr>
+            <?php foreach($voucher as $index=>$voucher): ?>  
+            <tr>
+                <td style="border: 2px solid black;"><?= $voucher->kode_voucher?><td>
+                <td style="border: 2px solid black;"><?= $voucher->besar_diskon?><td>
+                <td style="border: 2px solid black;"><?= $voucher->tanggal_akhir_berlaku?><td>
+                <td style="border: 2px solid black;"><?= $voucher->tanggal_mulai_berlaku?><td>
+            </tr>
+            <?php endforeach ?> 
+        </table>
+
     <!-- Deal Of The Week Section Begin-->
     <section class="deal-of-week set-bg spad" data-setbg="<?= base_url('fashi-master/img/time-bg.jpg') ?>">
         <div class="container">
@@ -497,14 +515,6 @@
             </div>
         </select>
         </div>
-        <ul class="filter-voucher">
-            <?php foreach($voucher as $index=>$voucher): ?>
-            <li><?= $voucher->kode_voucher?></a></li>
-            <li><?= $voucher->besar_diskon?></a></li>
-            <?php endforeach ?> 
-        </ul>
-
-        <!--tabel list voucher-->
     </section>
     <!-- Latest Blog Section End -->
 <?= $this->endSection() ?>

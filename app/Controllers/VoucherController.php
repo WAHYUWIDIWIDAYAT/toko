@@ -14,8 +14,7 @@ class VoucherController extends BaseController
 		$voucherModel = new \App\Models\VoucherModel();
         $kode_voucher = $this->request->getVar('voucher');
 		$voucher = $voucherModel->find($kode_voucher);
-		return view('shop/product',[
-            'voucher' => $voucher,
-        ]);
+        $this->session->setFlashdata('voucher', $voucher);
+        return view('shop/voucher');
 	}
 }
