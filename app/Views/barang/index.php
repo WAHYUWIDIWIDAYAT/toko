@@ -22,12 +22,18 @@
     <!--kategori input from data kategori-->
     <div class="form-group">
         <label for="id_kategori">Kategori</label>
+        
         <select name="id_kategori" class="form-control">
+        <option value="">Pilih Kategori</option>
             <?php foreach ($kategori as $k) : ?>
-                <option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
+                <option value="<?= $k->id ?>"><?= $k->nama ?></option>
             <?php endforeach; ?>
         </select>
     </div>
+    <!-- get data voucher from tabel voucher -->
+    <?php foreach ($voucher as $voucher) : ?>
+        <option value="<? $voucher->id ?>"><?= $voucher->nama ?></option>
+        <?php endforeach;?>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Simpan</button>
     </div>

@@ -95,4 +95,49 @@ class Auth extends BaseController
         $this->session->destroy();
         return redirect()->to('login');
     }
+
+    public function adminLogin(){
+        if($this->request->getPost())
+        {
+            //lakukan validasi untuk data yang di post
+            $data = $this->request->getPost();
+            $validate = $this->validation->run($data, 'admin');
+            $errors = $this->validation->getErrors();
+
+            if($errors)
+            {
+                return view('admin');
+            }
+
+            $userModel = new \App\Models\UserModel();
+
+            $username = $this->request->getPost('username');
+            $password = $this->request->getPost('password');
+
+            $user = $userModel->where('username', $username)->first();
+
+            if($user)
+            {
+                $salt = $user->salt;
+                if($user->password!==md5($salt.$password))
+                {
+                    $this->session->setFlashdata('errors', ['Password Salah']);
+                }else{
+                    $sessData = [
+                        'username' => $user->username,
+                        'id' => $user->id,
+                        'role' => $user->role,
+                        'isLoggedIn' => TRUE
+                    ];
+
+                    $this->session->set($sessData);
+
+                    return redirect()->to('/');
+                }
+            }else{
+                $this->session->setFlashdata('errors', ['User Tidak Ditemukan']);
+            }
+        }
+        return view('admin');
+    }
 }

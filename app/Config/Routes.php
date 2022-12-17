@@ -42,6 +42,7 @@ $routes->get('register', 'Auth::register');
 $routes->add('register', 'Auth::register');
 $routes->get('logout', 'Auth::logout');
 $routes->get('shop', 'Shop::index');
+$routes->get('shop/voucher','VoucherController::voucher');
 $routes->get('shop/category/(:segment)', 'Shop::category/$1');
 $routes->get('shop/product/(:segment)', 'Shop::product/$1');
 $routes->get('shop/getcity', 'Shop::getcity');
@@ -53,6 +54,10 @@ $routes->add('komentar/create', 'Komentar::create');
 $routes->add('barang/create', 'Barang::save');
 $routes->get('barang', 'Barang::kategori');
 $routes->get('barang', 'Barang::index');
+$routes->get('kategori', 'KategoriController::index', ['filter' => 'admin']);
+$routes->post('kategori/create', 'KategoriController::create', ['filter' => 'admin']);
+$routes->get('admin/login', 'Auth::login');
+$routes->add('admin/login', 'Auth::login');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -55,6 +55,10 @@ class Barang extends BaseController
         }
 
         $fileGambar = $this->request->getFile('gambar');
+        //check folder uploads if not exist create it
+        if (!is_dir('uploads')) {
+            mkdir('uploads', 0777, true);
+        }
         $namaGambar = $fileGambar->getRandomName();
         $fileGambar->move('uploads', $namaGambar);
         $data = [

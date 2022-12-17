@@ -3,9 +3,9 @@
 namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
-use App\Models\KategoriModel;
+use App\Models\VoucherModel;
 
-class Kategori extends Entity
+class Voucher extends Entity
 {
 
 }

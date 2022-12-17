@@ -26,6 +26,16 @@
 		'max' => $barang->stok,
         'class' => 'form-control',
 	];
+    $voucher = [
+        'name' => 'voucher',
+        'id' => 'voucher',
+        'class' => 'form-control',
+    ];
+    $kode_voucher = [
+        'name' => 'voucher',
+        'id' => 'voucher',
+        'class' => 'form-control',
+    ];
 	$total_harga = [
 		'name' => 'total_harga',
 		'id' => 'total_harga',
@@ -238,6 +248,7 @@
                                     <h4>Rp <?= $barang->harga ?></h4>
                                     <hr>
                                     <?php if($session->get('isLoggedIn')): ?>
+
                                     <h4>Pengiriman</h4>
                                     <div class="form-group">
                                         <label for="provinsi">Pilih Provinsi</label>
@@ -260,7 +271,18 @@
                                             <option>Select Service</option>
                                         </select>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="kode_voucher">Pilih Kode Diskon</label>
+                                        <select class="form-control" id="kode">
+                                            <option>Select Kode Voucher</option>
+                                            <?php foreach ($diskons as $diskon) : ?>
+                                                <?php
+                                                if ($diskon->aktif == 1) : ?>
+                                                    <option value="<?= $diskon->besar_diskon; ?>"><?= $diskon->kode_voucher; ?> besar diskon = <?= $diskon->besar_diskon; ?> %</option>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
                                     <strong>Estimasi : <span id="estimasi"></span></strong>
                                     <hr>
                                     <?= form_open('buy') ?>
@@ -286,6 +308,7 @@
                                             <?= form_submit($submit) ?>
                                         </div>
                                     <?= form_close() ?>
+
                                     <?php endif ?>
                                 </div>      
                                 <div class="pd-share">
@@ -412,11 +435,22 @@
 			$("#total_harga").val(total_harga);
 		});
 
-		$("#jumlah").on("change", function(){
-			jumlah_pembelian = $("#jumlah").val();
-			var total_harga = (jumlah_pembelian*harga)+ongkir;
-			$("#total_harga").val(total_harga);
-		});
+		$("#kode").on('change', function() {
+            var kode = $('option:selected', this).attr('etd');
+            kode = parseInt($(this).val());
+            var total_harga = (jumlah_pembelian * harga);
+            var jumlah_total = total_harga - (total_harga * kode / 100)  + ongkir;
+            $("#total_harga").val(jumlah_total);
+        });
+        
+
+		$("#jumlah").on("change", function() {
+            jumlah_pembelian = $("#jumlah").val();
+            var total_harga = (jumlah_pembelian * harga);
+            var jumlah_total = total_harga - (total_harga * kode / 100) + ongkir;
+            $("#total_harga").val(jumlah_total);
+        });
 	});
+    
 </script>
 <?= $this->endSection() ?>
