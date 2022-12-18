@@ -40,6 +40,7 @@ $routes->get('login', 'Auth::login');
 $routes->add('login', 'Auth::login');
 $routes->get('register', 'Auth::register');
 $routes->add('register', 'Auth::register');
+$routes->get('shop/discount', 'DiskonController::getDiscount');
 $routes->get('logout', 'Auth::logout');
 $routes->get('shop', 'Shop::index');
 $routes->get('shop/category/(:segment)', 'Shop::category/$1');

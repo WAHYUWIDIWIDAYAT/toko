@@ -46,6 +46,11 @@
 		'value' => null,
         'class' => 'form-control',
 	];
+    $code_discount = [
+        "name" => "code_discount",
+        "id" => "code_discount",
+        
+    ];
 
 	$submit = [
 		'name' => 'submit',
@@ -54,6 +59,13 @@
 		'value' => 'Beli', 
         'class' => 'primary-btn pd-cart'
 	];
+    $data_discount = [
+        'name' =>'data_discount',
+        'id' => 'data_discount',
+        'readonly' => true,
+        'class' => 'form-control',
+        'label' => 'discount'
+    ];
 ?>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
@@ -238,6 +250,16 @@
                                     <h4>Rp <?= $barang->harga ?></h4>
                                     <hr>
                                     <?php if($session->get('isLoggedIn')): ?>
+                                    <!--input discount and if success then show data below-->
+                                    <h4>Discount</h4>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="code_discount" placeholder="Masukkan Kode Discount"><br>
+                                        <div class="text-right"><button class="btn btn-primary" id="btn-code_discount">Check Discount</button></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= form_label('Selamat anda mendapat dicount: ', 'data_discount') ?>
+                                        <?= form_input($data_discount) ?>
+                                    </div>
                                     <h4>Pengiriman</h4>
                                     <div class="form-group">
                                         <label for="provinsi">Pilih Provinsi</label>
@@ -295,6 +317,8 @@
                                         <a href="#"><i class="ti-twitter-alt"></i></a>
                                         <a href="#"><i class="ti-linkedin"></i></a>
                                     </div>
+                                    <!-- just input code_discount and get data discount -->
+                                 
                                 </div>
                             </div>
                         </div>
@@ -408,15 +432,29 @@
 			ongkir = parseInt($(this).val());
 			$("#ongkir").val(ongkir);
 			$("#estimasi").html(estimasi +" Hari");
-			var total_harga = (jumlah_pembelian*harga)+ongkir;
-			$("#total_harga").val(total_harga);
+
 		});
 
-		$("#jumlah").on("change", function(){
-			jumlah_pembelian = $("#jumlah").val();
-			var total_harga = (jumlah_pembelian*harga)+ongkir;
-			$("#total_harga").val(total_harga);
-		});
+        $("#btn-code_discount").on('click', function(){
+            var code_discount = $("#code_discount").val();
+            $.ajax({
+                url : "<?= site_url('shop/discount') ?>",
+                type : 'GET',
+                data : {
+                    'code_discount' : code_discount
+                },
+                dataType : 'json',
+                success : function(data){
+                console.log(data);
+                var discount = parseInt(data["data"]["discount"]);
+                var total_harga = (harga * jumlah_pembelian) + ongkir - discount;
+                $("#total_harga").val(total_harga);
+                $("#data_discount").val(discount);
+                },
+                
+            });
+        });
 	});
 </script>
+var discount = parseInt(data["data"]["discount"]);
 <?= $this->endSection() ?>
