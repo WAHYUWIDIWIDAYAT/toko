@@ -432,6 +432,8 @@
 			ongkir = parseInt($(this).val());
 			$("#ongkir").val(ongkir);
 			$("#estimasi").html(estimasi +" Hari");
+            var total_harga = (harga * jumlah_pembelian) + ongkir;
+            $("#total_harga").val(total_harga);
 
 		});
 
