@@ -60,7 +60,7 @@ class Transaksi extends BaseController
 		}
     }
  
-    public function invoice(){
+	public function invoice(){
 		$id = $this->request->uri->getSegment(2);
 
 		$transaksiModel = new \App\Models\TransaksiModel();

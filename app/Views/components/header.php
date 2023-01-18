@@ -75,7 +75,9 @@ $session = session();
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li class="active"><a href="<?= site_url('/') ?>">Home</a></li>
+                        <?php if($session->get('role') == '1'): ?>
                         <li><a href="<?= site_url('shop') ?>">Shop</a></li>  
+                        <?php endif ?>
                         <li><a href="<?= site_url('contact') ?>">Contact</a></li>  
                         <?php if($session->get('isLoggedIn')): ?> 
                         <li><a href="<?= site_url('transaction') ?>">Transaction</a></li>

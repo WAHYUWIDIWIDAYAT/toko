@@ -26,7 +26,8 @@
 		Pembeli : <?= $pembeli->username ?><br>
 		Alamat : <?= $transaksi->alamat ?><br>
 		Transaksi No : <?= $transaksi->id ?><br>
-		Tanggal : <?= date('Y-m-d', strtotime($transaksi->created_date)) ?>
+		Tanggal : <?= date('Y-m-d', strtotime($transaksi->created_date)) ?><br>
+		Diskon : <?= "Rp ".number_format(-1*($transaksi->total_harga-($barang->harga*$transaksi->jumlah+$transaksi->ongkir)),2,',','.') ?> / (<?= number_format((100-($transaksi->total_harga/($transaksi->jumlah*$barang->harga+$transaksi->ongkir))*100)) ?>%)
 	</p>
 	<table cellpadding="6" >
 		<tr>

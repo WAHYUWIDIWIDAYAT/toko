@@ -223,8 +223,46 @@
             </div>
         </div>
     </section>
-    <!-- Deal Of The Week Section End -->
-
+    <section class="discount">
+        <br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Discount</h2>
+                        <p>Discount For New Year !!!!, Dicount Up to 50%  </p>
+                    </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Code Discount</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php $no = 1; ?>
+                                <?php foreach ($diskon as $d) : ?>
+                                    <th scope="row"><?= $no++ ?></th>
+                                    <td><?= $d['code_discount'] ?></td>
+                                    <td><?= $d['discount'] ?>%</td>
+                                    <td><?= $d['start_date'] ?></td>
+                                    <td><?= $d['end_date'] ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Man Banner Section Begin -->
     <section class="man-banner spad">
         <div class="container-fluid">
