@@ -66,6 +66,13 @@
         'class' => 'form-control',
         'label' => 'discount'
     ];
+    $diskon_deskripsi = [
+        'name' =>'diskon_deskripsi',
+        'id' => 'diskon_deskripsi',
+        'readonly' => true,
+        'class' => 'form-control',
+        'label' => 'discount description'
+    ];
 ?>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
@@ -236,7 +243,13 @@
                                 <div class="pd-title">
                                     <span><?= $barang->nama ?></span>
                                     <h3><?= $barang->nama ?></h3>
-                                    <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                    <!-- <form action="<?= base_url('shop/wishlist/'.$barang->id.'') ?>" method="post">
+                                    <form action="<?= base_url('shop/wishlist') ?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $barang->id ?>">
+                                        <a class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                        <a href="#" class="heart-icon" onclick="$(this).closest('form').submit(); return false;"><i class="icon_heart_alt"></i></a>
+                                    </form> -->
+                                    <a href="#" class="heart-icon" id="wishlist"><i class="icon_heart_alt"></i></a>
                                 </div>
                                 <div class="pd-rating">
                                     <i class="fa fa-star"></i>
@@ -254,12 +267,11 @@
                                     <h4>Discount</h4>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="code_discount" placeholder="Masukkan Kode Discount"><br>
+                                        <h4 id="diskon_deskripsi" style="text-size: 10px;"></h4><br>
                                         <div class="text-right"><button class="btn btn-primary" id="btn-code_discount">Check Discount</button></div>
+                                        
                                     </div>
-                                    <div class="form-group">
-                                        <?= form_label('Selamat anda mendapat dicount: ', 'data_discount') ?>
-                                        <?= form_input($data_discount) ?>
-                                    </div>
+                                    <h4 id="diskon_deskripsi" style="text-size: 10px;"></h4>
                                     <h4>Pengiriman</h4>
                                     <div class="form-group">
                                         <label for="provinsi">Pilih Provinsi</label>
@@ -447,16 +459,56 @@
                 },
                 dataType : 'json',
                 success : function(data){
-                console.log(data);
-                var discount = parseInt(data["data"]["discount"]);
-                var total_harga = (harga * jumlah_pembelian) + ongkir - discount;
-                $("#total_harga").val(total_harga);
-                $("#data_discount").val(discount);
+                    if(data["status"] == 200)
+                    {
+                        var discount = parseInt(data["data"]["discount"]);
+                        var total_harga = (harga * jumlah_pembelian + ongkir) - ((harga * jumlah_pembelian + ongkir) * discount / 100);
+                        $("#total_harga").val(total_harga);
+                        $("#data_discount").val(discount);
+                        $("#diskon_deskripsi").html("Anda Mendapat Diskon : "+discount+"%");
+                    }
+                    else if(data["status"] == 404)
+                    {
+                        $("#diskon_deskripsi").html("Diskon Telah Berakhir");
+                    }
+                    else if(data["status"] == 401)
+                    {
+                        $("#diskon_deskripsi").html("Diskon Belum Dimulai");
+                    }
+                    else if(data["status"] == 400)
+                    {
+                        $("#diskon_deskripsi").html("Diskon Tidak Ditemukan");
+                    }
+                },
+                
+            });
+        });
+
+        $("#wishlist").on('click', function(){
+            var id = <?= $barang->id ?>;
+            $.ajax({
+                // url : "<?= site_url('shop/wishlist/') ?>"+id,
+                url : "<?= site_url('shop/wishlist') ?>",
+                type : 'POST',
+                data : {
+                    'id' : id
+                },
+                dataType : 'json',
+                success : function(data){
+                    if(data["status"] == 200)
+                    {
+                        $("#wishlist").html('<i class="fa fa-heart"></i>');
+                        alert("Produk Berhasil Ditambahkan Ke Wishlist");
+                    }
+                    else if(data["status"] == 404)
+                    {
+                        $("#wishlist").html('<i class="fa fa-heart-o"></i>');
+                    }
                 },
                 
             });
         });
 	});
 </script>
-var discount = parseInt(data["data"]["discount"]);
+
 <?= $this->endSection() ?>

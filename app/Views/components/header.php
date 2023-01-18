@@ -59,7 +59,7 @@ $session = session();
                 </div>
             </div>
         </div>
-        <div class="nav-item">
+        <!-- <div class="nav-item">
             <div class="container">
                 <div class="nav-depart">
                     <div class="depart-btn">
@@ -80,10 +80,55 @@ $session = session();
                         <?php if($session->get('isLoggedIn')): ?> 
                         <li><a href="<?= site_url('transaction') ?>">Transaction</a></li>
                         <?php endif ?>
+                        <?php if($session->get('isLoggedIn')): ?> 
+                        <li><a href="<?= site_url('shop/wishlist') ?>">Wishlist</a></li>
+                        <?php endif ?>
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div> -->
+        <div class="nav-item">
+            <div class="container">
+                <?php if($session->get('role') == '1'): ?>
+                    <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>All categories</span>
+                        <ul class="depart-hover">
+                            <li class="active"><a href="<?= site_url('shop/category/2') ?>">Women’s Clothing</a></li>
+                            <li><a href="<?= site_url('shop/category/1') ?>">Men’s Clothing</a></li> 
+                            <li><a href="<?= site_url('shop/category/3') ?>">Kid's Clothing</a></li> 
+                        </ul>
+                    </div>
+                </div>
+                <?php endif ?>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="<?= site_url('/') ?>">Home</a></li>
+                        <?php if($session->get('role') == '1'): ?>
+                        <li><a href="<?= site_url('shop') ?>">Shop</a></li>  
+                        <?php endif ?>
+                        <?php if($session->get('role') == '1'): ?> 
+                        <li><a href="<?= site_url('contact') ?>">Contact</a></li>  
+                        <?php endif ?>
+                        <?php if($session->get('role') == '1'): ?> 
+                        <li><a href="<?= site_url('transaction') ?>">Transaction</a></li>
+                        <?php endif ?>
+                        <?php if($session->get('role') == '1'): ?>
+                        <li><a href="<?= site_url('shop/wishlist') ?>">Wishlist</a></li>
+                        <?php endif ?>
+                        <?php if($session->get('role') == '2'): ?>
+                        <li><a href="<?= site_url('barang') ?>">Barang</a></li>
+                        <?php endif ?>
+                        <?php if($session->get('role') == '2'): ?>
+                        <li><a href="<?= site_url('kategori') ?>">Kategori</a></li>
+                        <?php endif ?>
                     </ul>
                 </nav>
                 <div id="mobile-menu-wrap"></div>
             </div>
         </div>
+
     </header>
     <!-- Header End -->

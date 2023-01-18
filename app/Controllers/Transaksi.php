@@ -22,6 +22,24 @@ class Transaksi extends BaseController
 		]);
 	}
 
+	//get transaksi by session id pembeli
+	public function userTransaksi()
+	{
+		$id = $this->session->get('id');
+		$transaksiModel = new \App\Models\TransaksiModel();
+		$transaksi = $transaksiModel->where('id_pembeli', $id)->findAll();
+		$barangModel = new \App\Models\BarangModel();
+		$barang = $barangModel->find($transaksi[0]->id_barang);
+		$kategoriModel = new \App\Models\KategoriModel();
+		$kategori = $kategoriModel->find($barang->id_kategori);
+		$userModel = new \App\Models\UserModel();
+		$user = $userModel->where('id', $id)->first();
+
+		//1 transaksi bisa memiliki banyak barang
+
+		return $this->response->setJSON($data);
+	}
+
     public function buy()
     { 
         if($this->request->getPost())
@@ -95,4 +113,21 @@ class Transaksi extends BaseController
         // output the generated pdf
         $dompdf->stream($filename); 
     }
+
+	public function list()
+	{
+		$transaksiModel = new \App\Models\TransaksiModel();  
+		$transaksi = $transaksiModel->findAll();
+		$userModel = new \App\Models\UserModel();
+		$barangModel = new \App\Models\BarangModel();
+		$users = $userModel->findAll();
+		$barangs = $barangModel->findAll();
+		
+		return $this->response->setJSON([
+			'transaksis' => $transaksi,
+			'users' => $users,
+			'barangs' => $barangs,
+		]);
+	}
+
 }

@@ -165,7 +165,7 @@
                                 <div class="col-lg-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="pi-pic">
-                                            <img src="<?= base_url('uploads/'.$barang->gambar.'') ?>" alt="">
+                                            <img src="<?= base_url('uploads/'.$barang->gambar.'') ?>" alt="" style="height: 200px; width: 200px;">
                                             <div class="icon">
                                                 <i class="icon_heart_alt"></i>
                                             </div>

@@ -141,4 +141,55 @@ class Shop extends BaseController
 
 		return $response;
 	} 
+
+	public function addWishList(){
+		$id = $this->request->getPost('id');
+		$wishlist = $this->request->getCookie('wishlist');
+		$wishlist = $wishlist ? json_decode($wishlist, true) : [];
+		if(!in_array($id, $wishlist)){
+			$wishlist[] = $id;
+		}else{
+			$wishlist = array_diff($wishlist, [$id]);
+		}
+		$wishlist = json_encode($wishlist);
+		$this->response->setCookie('wishlist', $wishlist, time()+3600*24*30);
+		return $this->response->setJSON(['status' => 200]);
+	}
+	
+	
+
+	public function getWishList()
+	{
+		$wishlist = $this->request->getCookie('wishlist');
+		$wishlist = $wishlist ? json_decode($wishlist, true) : [];
+		$barangModel = new \App\Models\BarangModel();
+		if (count($wishlist) > 0) {
+			$barang = $barangModel->whereIn('id', $wishlist)->findAll();
+			$kategoriModel = new \App\Models\KategoriModel();
+			$kategori = $kategoriModel->whereIn('id', array_column($barang, 'id_kategori'))->findAll();
+			return view('shop/wishlist', [
+				'wishlist' => $barang,
+				'kategori' => $kategori,
+			]);
+		}else{
+			return view('shop/wishlist', [
+				'wishlist' => [],
+				'kategori' => [],
+			]);
+		}
+	
+	}
+
+	public function removewishlist()
+	{
+
+		$id = $this->request->getPost('id');
+		$wishlist = $this->request->getCookie('wishlist');
+		$wishlist = $wishlist ? json_decode($wishlist, true) : [];
+		$wishlist = array_diff($wishlist, [$id]);
+		$wishlist = json_encode($wishlist);
+		$this->response->setCookie('wishlist', $wishlist, time()+3600*24*30);
+		return $this->response->redirect(site_url('shop/wishlist'));
+	}
+
 }

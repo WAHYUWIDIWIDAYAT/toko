@@ -43,6 +43,9 @@ $routes->add('register', 'Auth::register');
 $routes->get('shop/discount', 'DiskonController::getDiscount');
 $routes->get('logout', 'Auth::logout');
 $routes->get('shop', 'Shop::index');
+$routes->get('shop/wishlist/', 'Shop::getWishlist');
+$routes->post('shop/wishlist', 'Shop::addWishlist');
+$routes->post('shop/removewishlist', 'Shop::removewishlist');
 $routes->get('shop/category/(:segment)', 'Shop::category/$1');
 $routes->get('shop/product/(:segment)', 'Shop::product/$1');
 $routes->get('shop/getcity', 'Shop::getcity');
@@ -51,13 +54,19 @@ $routes->get('transaction', 'Transaksi::index', ['filter' => 'auth']);
 $routes->get('invoice/(:segment)', 'Transaksi::invoice', ['filter' => 'auth']);
 $routes->add('buy', 'Transaksi::buy', ['filter' => 'auth']);
 $routes->add('komentar/create', 'Komentar::create');
-$routes->add('barang/create', 'Barang::save');
-$routes->get('barang', 'Barang::kategori');
-$routes->get('barang', 'Barang::index');
+$routes->add('barang/create', 'Barang::save', ['filter' => 'admin']);
+$routes->get('barang/create', 'Barang::index', ['filter' => 'admin']);
 $routes->get('kategori', 'KategoriController::index', ['filter' => 'admin']);
 $routes->post('kategori/create', 'KategoriController::create', ['filter' => 'admin']);
 $routes->get('admin/login', 'Auth::login');
 $routes->add('admin/login', 'Auth::login');
+$routes->get('barang/', 'Barang::getBarang');
+$routes->get('detail/barang/(:segment)', 'Barang::detailBarang/$1');
+$routes->delete('delete/barang/(:segment)', 'Barang::deleteBarang/$1', ['filter' => 'admin']);
+$routes->get('edit/barang/(:segment)', 'Barang::editBarang/$1', ['filter' => 'admin']);
+$routes->post('edit/barang/(:segment)', 'Barang::updateBarang/$1', ['filter' => 'admin']);
+$routes->get('admin/transaksi', 'Transaksi::list', ['filter' => 'admin']);
+$routes->get('user/transaksi', 'Transaksi::userTransaksi', ['filter' => 'auth']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing
